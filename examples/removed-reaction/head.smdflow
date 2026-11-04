@@ -1,0 +1,12 @@
+# A removed reaction, after: notifications no longer handle TicketAssignedEvent.
+app ticket-service
+
+aggregate Ticket
+  OpenTicketCommand   -> TicketOpenedEvent
+  AssignTicketCommand -> TicketAssignedEvent
+
+group ticket-view sync
+  handles TicketOpenedEvent TicketAssignedEvent
+
+group notifications durable ticket.notifications
+  handles TicketOpenedEvent

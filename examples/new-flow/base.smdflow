@@ -1,0 +1,8 @@
+# Closing a ticket, before: tickets can only be opened.
+app ticket-service
+
+aggregate Ticket
+  OpenTicketCommand  -> TicketOpenedEvent
+
+group ticket-view sync
+  handles TicketOpenedEvent

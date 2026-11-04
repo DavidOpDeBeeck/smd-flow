@@ -1,0 +1,12 @@
+# A removed reaction, before: assigning a ticket notifies.
+app ticket-service
+
+aggregate Ticket
+  OpenTicketCommand   -> TicketOpenedEvent
+  AssignTicketCommand -> TicketAssignedEvent
+
+group ticket-view sync
+  handles TicketOpenedEvent TicketAssignedEvent
+
+group notifications durable ticket.notifications
+  handles TicketOpenedEvent TicketAssignedEvent

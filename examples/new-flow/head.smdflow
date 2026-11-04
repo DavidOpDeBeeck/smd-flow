@@ -1,0 +1,12 @@
+# Closing a ticket, after: a new command, and a new group that notifies on it.
+app ticket-service
+
+aggregate Ticket
+  OpenTicketCommand  -> TicketOpenedEvent
+  CloseTicketCommand -> TicketClosedEvent
+
+group ticket-view sync
+  handles TicketOpenedEvent TicketClosedEvent
+
+group notifications durable ticket.notifications
+  handles TicketClosedEvent

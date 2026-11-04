@@ -1,0 +1,8 @@
+# A group that starts a flow, before: closing a ticket only updates the view.
+app ticket-service
+
+aggregate Ticket
+  CloseTicketCommand -> TicketClosedEvent
+
+group ticket-view sync
+  handles TicketClosedEvent

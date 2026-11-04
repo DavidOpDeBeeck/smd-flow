@@ -1,0 +1,15 @@
+# A group that starts a flow, after: a survey group sends a command when a ticket closes.
+app ticket-service
+
+aggregate Ticket
+  CloseTicketCommand -> TicketClosedEvent
+
+handler SurveyCommandHandler
+  SendSurveyCommand -> SurveySentEvent
+
+group ticket-view sync
+  handles TicketClosedEvent
+
+group satisfaction-survey durable ticket.satisfaction-survey
+  handles TicketClosedEvent
+  sends   SendSurveyCommand

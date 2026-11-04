@@ -1,0 +1,11 @@
+# A medium change, after: notifications move to a durable dispatcher.
+app ticket-service
+
+aggregate Ticket
+  OpenTicketCommand -> TicketOpenedEvent
+
+group ticket-view sync
+  handles TicketOpenedEvent
+
+group notifications durable ticket.notifications
+  handles TicketOpenedEvent

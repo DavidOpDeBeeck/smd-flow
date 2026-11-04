@@ -1,0 +1,11 @@
+# A changed command: ResolveTicketCommand gains a field; the wiring stays the same, so it is drawn with --changed.
+app ticket-service
+
+aggregate Ticket
+  ResolveTicketCommand -> TicketResolvedEvent
+
+group ticket-view sync
+  handles TicketResolvedEvent
+
+group notifications durable ticket.notifications
+  handles TicketResolvedEvent
